@@ -45,7 +45,7 @@ func scrapLink(link string, baseUrl *string, wg *sync.WaitGroup, linksChannel ch
 	// Do request
 	resp, err := http.Get(link)
 	if err != nil {
-		fmt.Println(color.RedString("Death Link: "), link)
+		fmt.Println(color.RedString("Dead Link: "), link)
 		linkMap[link] = false
 		return err
 	}
@@ -53,7 +53,7 @@ func scrapLink(link string, baseUrl *string, wg *sync.WaitGroup, linksChannel ch
 
 	// If custom server errors
 	if resp.StatusCode >= 300 || resp.StatusCode < 200 {
-		fmt.Println(color.RedString("Death Link: "), link, resp.Status)
+		fmt.Println(color.RedString("Dead Link: "), link, resp.Status)
 		linkMap[link] = false
 	}
 
@@ -113,7 +113,7 @@ func main() {
 
 	// Result
 	wgmain.Wait()
-	fmt.Println("\n+----- " + color.RedString(" Death Links ") + "------")
+	fmt.Println("\n+----- " + color.RedString(" Dead Links ") + "------")
 	for link, isAccessible := range linkMap {
 		if !isAccessible {
 			fmt.Println(color.YellowString(link))
